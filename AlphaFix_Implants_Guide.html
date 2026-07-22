@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alpha Fix — מדריך השתלים</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+--bg:#0e1013;--bg2:#131720;--card:#171b22;--card2:#1d222b;--line:#2a313c;--line2:#3b434f;
+--gold:#C7A253;--gold2:#E9CE8A;--goldSoft:#2a2313;--txt:#EAECEF;--mut:#9BA2AC;--mut2:#727984;
+--blue:#84A9E6;--blueBg:#182536;--teal:#79C9C1;--tealBg:#132a2b;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--txt);font-family:'Heebo',system-ui,Arial,sans-serif;font-weight:400;line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,h4{font-weight:700;line-height:1.25;margin:0}
+.wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+section{padding:56px 0;border-top:1px solid var(--line)}
+.eyebrow{color:var(--gold);font-weight:700;letter-spacing:.14em;font-size:12px;text-transform:uppercase;margin:0 0 10px}
+.lead{color:var(--mut);font-size:16px;max-width:70ch}
+/* nav */
+nav{position:sticky;top:0;z-index:50;background:rgba(14,16,19,.82);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav-in{max-width:1120px;margin:0 auto;padding:12px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{font-weight:800;letter-spacing:.18em;color:var(--gold);font-size:18px;white-space:nowrap}
+.brand small{display:block;font-size:9px;letter-spacing:.28em;color:var(--mut2);font-weight:500}
+.nav-links{display:flex;gap:22px;font-size:14px;color:var(--mut);flex-wrap:wrap}
+.nav-links a:hover{color:var(--gold2)}
+/* hero */
+.hero{padding:64px 0 48px;border-top:none}
+.hero h1{font-size:clamp(30px,5vw,50px);font-weight:800;letter-spacing:-.01em}
+.hero h1 b{color:var(--gold)}
+.hero p{font-size:18px;color:var(--mut);margin:18px 0 26px;max-width:64ch}
+.stats{display:flex;gap:14px;flex-wrap:wrap}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 18px;min-width:110px}
+.stat b{display:block;color:var(--gold2);font-size:24px;font-weight:800;line-height:1}
+.stat span{font-size:12.5px;color:var(--mut)}
+/* concept */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:26px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 24px}
+.panel.one{border-color:#4a3d1e}
+.panel.two{border-color:#2c3a52}
+.panel-head{display:flex;align-items:center;gap:14px;margin-bottom:8px}
+.panel-tag{font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px}
+.tag-one{background:var(--goldSoft);color:var(--gold2)}
+.tag-two{background:var(--blueBg);color:var(--blue)}
+.panel h3{font-size:21px}
+.panel .sub{color:var(--mut2);font-size:13px}
+.plist{margin:14px 0 0;padding:0;list-style:none;font-size:14.5px}
+.plist li{padding:6px 0 6px 0;color:var(--txt);display:flex;gap:9px}
+.plist li::before{content:"";flex:0 0 7px;height:7px;margin-top:9px;border-radius:2px}
+.one .plist li::before{background:var(--gold)}
+.two .plist li::before{background:var(--blue)}
+.concept-fig{display:flex;justify-content:center;padding:6px 0 4px}
+.mini-note{font-size:12.5px;color:var(--mut2);margin-top:8px;text-align:center}
+/* category tiles */
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:24px}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;transition:.15s;cursor:pointer}
+.tile:hover{border-color:var(--gold);transform:translateY(-2px)}
+.tile h4{font-size:16px;color:var(--gold2)}
+.tile p{margin:6px 0 0;font-size:13px;color:var(--mut)}
+.tile .cnt{font-size:12px;color:var(--mut2);margin-top:10px;display:block}
+/* filter */
+.filters{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:22px 0 6px}
+.flabel{font-size:12.5px;color:var(--mut2);margin-inline-end:2px}
+.chipbtn{font-size:13.5px;padding:7px 15px;border-radius:22px;border:1px solid var(--line2);background:transparent;color:var(--mut);cursor:pointer;font-family:inherit;transition:.15s}
+.chipbtn:hover{color:var(--txt);border-color:var(--gold)}
+.chipbtn[aria-pressed="true"]{background:var(--gold);color:#12140f;border-color:var(--gold);font-weight:700}
+.count{font-size:13px;color:var(--mut2);margin:14px 0 2px}
+/* implant grid */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px;margin-top:8px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 20px 18px;display:flex;flex-direction:column;transition:.15s}
+.card:hover{border-color:var(--line2)}
+.card.p1{box-shadow:inset 4px 0 0 var(--gold)}
+.card.p2{box-shadow:inset 4px 0 0 var(--blue)}
+.card-top{display:flex;gap:16px}
+.card figure{margin:0;flex:0 0 70px;text-align:center}
+.card h3{font-size:20px;font-weight:700}
+.card .system{color:var(--mut2);font-size:12.5px;margin-top:2px}
+.badges{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+.badge{font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px}
+.b1{background:var(--goldSoft);color:var(--gold2)}
+.b2{background:var(--blueBg);color:var(--blue)}
+.bconn{background:var(--card2);color:var(--mut);font-weight:500;border:1px solid var(--line)}
+.section-h{font-size:12px;font-weight:700;color:var(--gold);letter-spacing:.08em;text-transform:uppercase;margin:16px 0 7px}
+.card ul{margin:0;padding:0;list-style:none;font-size:13.5px}
+.card ul li{padding:3px 0;display:flex;gap:8px;color:var(--txt)}
+.card ul li::before{content:"";flex:0 0 5px;height:5px;margin-top:8px;border-radius:50%;background:var(--gold)}
+.card ul.clin li::before{background:var(--blue)}
+.specs{display:flex;gap:8px;margin-top:16px;border-top:1px solid var(--line);padding-top:13px}
+.specs div{flex:1;text-align:center}
+.specs dt{font-size:10.5px;color:var(--mut2);margin:0}
+.specs dd{margin:2px 0 0;font-size:13px;font-weight:700;color:var(--gold2)}
+.surface-note{font-size:11.5px;color:var(--mut2);margin-top:11px}
+/* glossary */
+.gtools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:20px 0 4px}
+#gsearch{flex:1;min-width:200px;background:var(--card);border:1px solid var(--line2);border-radius:12px;padding:11px 15px;color:var(--txt);font-family:inherit;font-size:14.5px}
+#gsearch:focus{outline:none;border-color:var(--gold)}
+.gGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;margin-top:16px}
+.term{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.term .he{font-size:16px;font-weight:700}
+.term .pro{font-size:12px;color:var(--gold);margin:1px 0 8px;font-weight:500;direction:ltr;text-align:right}
+.term .def{font-size:13.5px;color:var(--mut);line-height:1.65}
+.term .gtag{font-size:10px;font-weight:700;color:var(--mut2);border:1px solid var(--line2);border-radius:6px;padding:1px 7px;float:left;margin-inline-start:8px}
+.empty{color:var(--mut2);font-size:14px;padding:20px 0}
+footer{border-top:1px solid var(--line);padding:34px 0 60px;color:var(--mut2);font-size:12.5px}
+footer b{color:var(--mut)}
+@media(max-width:760px){.two-col{grid-template-columns:1fr}.tiles{grid-template-columns:1fr 1fr}.nav-links{display:none}}
+</style>
+</head>
+<body>
+
+<nav><div class="nav-in">
+  <div class="brand">ALPHA FIX<small>DENTAL IMPLANT SOLUTIONS</small></div>
+  <div class="nav-links">
+    <a href="#concept">מושג הבסיס</a>
+    <a href="#cats">קטגוריות</a>
+    <a href="#implants">השתלים</a>
+    <a href="#glossary">מילון מונחים</a>
+  </div>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+  <p class="eyebrow">מדריך למידה · סוכן שטח</p>
+  <h1>מכיר כל שתל — <b>מערכת, חיבור וייעוד</b></h1>
+  <p>המדריך המלא לסדרות השתלים של Alpha Fix: איך מבדילים חד-חלקי מדו-חלקי, מה ההבדל בין החיבורים (Internal Hex, קוני, מולטי-יוניט), לאיזה מצב קליני כל שתל נועד — ומילון מונחים בשפה פשוטה.</p>
+  <div class="stats">
+    <div class="stat"><b>9</b><span>סדרות שתלים</span></div>
+    <div class="stat"><b>4</b><span>קטגוריות מערכת</span></div>
+    <div class="stat"><b>2</b><span>סוגי מבנה: 1P / 2P</span></div>
+    <div class="stat"><b>ISO</b><span>13485 · 9001</span></div>
+  </div>
+</div></header>
+
+<section id="concept"><div class="wrap">
+  <p class="eyebrow">מושג הבסיס</p>
+  <h2>חד-חלקי מול דו-חלקי — ההבחנה שמארגנת הכול</h2>
+  <p class="lead">כל שתל שייך לאחת משתי משפחות לפי המבנה שלו. זה הדבר הראשון שכדאי לזהות בכל שתל — הוא קובע את שיטת העבודה, את יתרונות האטימה, ולאילו מקרים הוא מתאים.</p>
+  <div class="two-col">
+    <div class="panel one">
+      <div class="panel-head"><span class="panel-tag tag-one">חד-חלקי · One-Piece</span></div>
+      <h3>יציקה אחת רציפה</h3>
+      <div class="sub">מבנה מובנה · ללא מיקרו-גאפ</div>
+      <div class="concept-fig" id="fig-one"></div>
+      <ul class="plist">
+        <li>השתל והמבנה הם חתיכה אחת — אין מפגש ואין בורג.</li>
+        <li>אפס מיקרו-גאפ = אין דליפת חיידקים, פחות דלקת סביב השתל.</li>
+        <li>חוזק מכני מרבי (אין בורג שמשתחרר או נשבר).</li>
+        <li>מתאים לרכסים צרים ולעומס מיידי; המבנה חשוף מיד (חד-שלבי) והזווית נקבעת בניתוח — ולכן הוא כפיף לתיקון.</li>
+      </ul>
+      <div class="mini-note">Basal · Compressive · Compressive MU · Pterygoid MU</div>
+    </div>
+    <div class="panel two">
+      <div class="panel-head"><span class="panel-tag tag-two">דו-חלקי · Two-Piece</span></div>
+      <h3>שני רכיבים + בורג</h3>
+      <div class="sub">מבנה נפרד · חיבור פנימי</div>
+      <div class="concept-fig" id="fig-two"></div>
+      <ul class="plist">
+        <li>גוף השתל ומבנה נפרד שמתחברים בחיבור פנימי ובורג.</li>
+        <li>גמישות פרוסתטית: בוחרים ומחליפים מבנה וזווית אחרי ההחלמה.</li>
+        <li>אפשר לקבור את השתל להחלמה דו-שלבית מוגנת.</li>
+        <li>יש מפגש = מיקרו-גאפ ובורג; דורש יותר רוחב עצם. החיבור הקוני מצמצם את המיקרו-גאפ כמעט לאפס.</li>
+      </ul>
+      <div class="mini-note">Spiral · Spiral CC · Grip · Pterygoid · Zygomatic</div>
+    </div>
+  </div>
+</div></section>
+
+<section id="cats"><div class="wrap">
+  <p class="eyebrow">הקטגוריות באתר</p>
+  <h2>ארבע מערכות — שני היגיון מיון</h2>
+  <p class="lead">Alpha Fix ממיינת לפי <b style="color:var(--txt)">סוג החיבור</b> (Internal Hex, קוני, חד-חלקי) וגם לפי <b style="color:var(--txt)">ייעוד אנטומי</b> (Pterygoid). לכן חלק מהשתלים מופיעים בשתי קטגוריות — זה תיוג כפול, לא כפילות. לחיצה על קטגוריה תסנן את השתלים למטה.</p>
+  <div class="tiles">
+    <div class="tile" data-jump="hex"><h4>Internal Hex</h4><p>משושה פנימי — החיבור הנפוץ, הפשוט והתואם. כולם דו-חלקיים.</p><span class="cnt">Spiral · Grip · Pterygoid · Zygomatic</span></div>
+    <div class="tile" data-jump="conical"><h4>חיבור קוני</h4><p>Conical / Morse — אטימה כמעט מושלמת, שימור עצם ואסתטיקה.</p><span class="cnt">Spiral CC (CCP)</span></div>
+    <div class="tile" data-jump="compressive"><h4>Compressive חד-חלקי</h4><p>כל השתלים החד-חלקיים — ללא מיקרו-גאפ, לרכסים צרים ועצם דלה.</p><span class="cnt">Basal · Compressive · CMU · Pterygoid MU</span></div>
+    <div class="tile" data-jump="pterygoid"><h4>מערכת Pterygoid</h4><p>ייעוד אנטומי — עיגון מאחורי המולרים, תחליף להרמת סינוס.</p><span class="cnt">Pterygoid · Pterygoid MU</span></div>
+  </div>
+</div></section>
+
+<section id="implants"><div class="wrap">
+  <p class="eyebrow">קטלוג השתלים</p>
+  <h2>תשע הסדרות — לפי ייעוד קליני</h2>
+  <div class="filters">
+    <span class="flabel">מבנה:</span>
+    <button class="chipbtn" data-k="piece" data-v="all" aria-pressed="true">הכל</button>
+    <button class="chipbtn" data-k="piece" data-v="2">דו-חלקי</button>
+    <button class="chipbtn" data-k="piece" data-v="1">חד-חלקי</button>
+  </div>
+  <div class="filters">
+    <span class="flabel">קטגוריה:</span>
+    <button class="chipbtn" data-k="cat" data-v="all" aria-pressed="true">הכל</button>
+    <button class="chipbtn" data-k="cat" data-v="pterygoid">Pterygoid</button>
+    <button class="chipbtn" data-k="cat" data-v="compressive">Compressive חד-חלקי</button>
+    <button class="chipbtn" data-k="cat" data-v="conical">חיבור קוני</button>
+    <button class="chipbtn" data-k="cat" data-v="hex">Internal Hex</button>
+  </div>
+  <p class="count" id="count"></p>
+  <div class="grid" id="grid"></div>
+</div></section>
+
+<section id="glossary"><div class="wrap">
+  <p class="eyebrow">מילון מונחים</p>
+  <h2>כל המונחים — בשפה פשוטה</h2>
+  <p class="lead">השם המקצועי, ולידו הסבר אנושי של מה זה ומה הפתרון הקליני. מסונן לפי נושא, או חפשו מונח.</p>
+  <div class="gtools">
+    <input id="gsearch" type="text" placeholder="חיפוש מונח... (למשל: קוני, סינוס, SLA)">
+  </div>
+  <div class="filters">
+    <button class="chipbtn" data-g="all" aria-pressed="true">הכל</button>
+    <button class="chipbtn" data-g="conn">חיבורים ומבנה</button>
+    <button class="chipbtn" data-g="anat">אנטומיה וייעוד</button>
+    <button class="chipbtn" data-g="gen">כללי · תהליכים · משטח</button>
+  </div>
+  <div class="gGrid" id="gGrid"></div>
+  <p class="empty" id="gEmpty" style="display:none">לא נמצאו מונחים תואמים.</p>
+</div></section>
+
+<footer><div class="wrap">
+  <b>Alpha Fix — מדריך למידה פנימי.</b> התוכן נבנה מתוך קטלוגי המוצר של החברה למטרת למידה. מידות, מק"טים ואינדיקציות — יש לאמת מול הקטלוג הרשמי והיצרן לפני שימוש מסחרי או קליני. אין באמור ייעוץ רפואי. גרסה 1.0 · יולי 2026.
+</div></footer>
+
+<script>
+(function(){
+ var G='#B8BEC6',GD='#787E86',PL='#CBD0D7',GO='#C7A253',GOL='#E9CE8A',VI='#9F90ED',SL='#3d434c';
+ function half(t,th,ah){return th+(ah-th)*t;}
+ function body(topY,botY,th,ah,threads){
+   var cx=32,tip=botY+7;
+   var d='M '+(cx-th)+' '+topY+' L '+(cx+th)+' '+topY+' L '+(cx+ah)+' '+botY+' L '+cx+' '+tip+' L '+(cx-ah)+' '+botY+' Z';
+   var s='<path d="'+d+'" fill="'+G+'" stroke="'+GD+'" stroke-width="1"/>';
+   var start=threads==='long'?topY+(botY-topY)*0.5:topY+4;
+   var step=threads==='square'?9:7;
+   for(var y=start;y<botY-2;y+=step){
+     var t=(y-topY)/(botY-topY);var h=half(t,th,ah)+1.5;var sl=threads==='spiral'?2:0;
+     s+='<line x1="'+(cx-h)+'" y1="'+y+'" x2="'+(cx+h)+'" y2="'+(y+sl)+'" stroke="'+GD+'" stroke-width="'+(threads==='square'?2.4:1.6)+'" stroke-linecap="round"/>';
+   }
+   return s;
+ }
+ var nHex='<rect x="18" y="30" width="28" height="13" rx="2" fill="'+PL+'" stroke="'+GD+'"/><polygon points="27,33 37,33 40,36.5 37,40 27,40 24,36.5" fill="'+SL+'"/>';
+ var nCon='<rect x="20" y="35" width="24" height="8" rx="1" fill="'+PL+'" stroke="'+GD+'"/><polygon points="24,35 40,35 35,26 29,26" fill="'+VI+'" stroke="'+GD+'" stroke-width="0.6"/>';
+ var nGold='';[[9,17],[11,23],[12,29],[13,35]].forEach(function(a){nGold+='<rect x="'+(32-a[0])+'" y="'+a[1]+'" width="'+(a[0]*2)+'" height="6.5" rx="2" fill="'+GO+'" stroke="'+GOL+'" stroke-width="0.7"/>';});
+ var nMu='<polygon points="24,31 40,31 43,37 40,43 24,43 21,37" fill="'+GO+'" stroke="'+GOL+'"/><rect x="28" y="18" width="8" height="14" rx="1.5" fill="'+GO+'" stroke="'+GOL+'" stroke-width="0.7"/>';
+ var nZy='<rect x="24" y="18" width="16" height="12" rx="2" fill="'+PL+'" stroke="'+GD+'"/><polygon points="28,20 36,20 38,23 36,26 28,26 26,23" fill="'+SL+'"/>';
+ function fig(top,bd,alt){
+   var t='',topY=43,botY=130,th=13,ah=5;
+   if(top==='hex')t=nHex;else if(top==='conical')t=nCon;else if(top==='gold'){t=nGold;topY=41;}else if(top==='mu'){t=nMu;topY=43;}else if(top==='zygo'){t=nZy;topY=30;botY=134;th=8;ah=4;bd='long';}
+   return '<svg viewBox="0 0 64 148" width="70" height="152" role="img" aria-label="'+alt+'">'+t+body(topY,botY,th,ah,bd)+'</svg>';
+ }
+ // concept illustrations (shapes only, aligned; captions live in the panel text)
+ function conceptOne(){
+   return '<svg viewBox="0 0 120 180" width="120" height="180" role="img" aria-label="שתל חד-חלקי — יציקה אחת רציפה">'
+   +'<g transform="translate(28,6)">'+nGold+body(41,150,13,5,'spiral')+'</g>'
+   +'</svg>';
+ }
+ function conceptTwo(){
+   return '<svg viewBox="0 0 120 180" width="120" height="180" role="img" aria-label="שתל דו-חלקי — מבנה נפרד וגוף השתל">'
+   +'<g transform="translate(28,2)">'+nGold+'</g>'
+   +'<line x1="34" y1="50" x2="86" y2="50" stroke="'+VI+'" stroke-width="1.2" stroke-dasharray="3 3"/>'
+   +'<g transform="translate(28,58)">'+body(0,112,13,5,'spiral')+'</g>'
+   +'</svg>';
+ }
+ document.getElementById('fig-one').innerHTML=conceptOne();
+ document.getElementById('fig-two').innerHTML=conceptTwo();
+
+ var D=[
+  {n:'Spiral',sy:'High Primary Stability System',p:2,conn:'Internal Hex',cats:['hex'],cat:'Internal Hex system',dia:'2.9–6.0',len:'6–16',ref:'AF-F',top:'hex',bd:'spiral',
+   feat:['ציפוי אנטי-בקטריאלי על צוואר עם טבעות מיקרו','תבריגי קונדנסציה — גוף חרוטי לקידוח עצמי','קצה self-tapping צר 0.5mm להחדרה בטוחה'],
+   clin:['שתל היומיום לרוב המקרים','השתלה מיידית מיד לאחר עקירה','עומס מיידי במקרים מתאימים','טווח קוטרים רחב — מחותכת צרה ועד מולר']},
+  {n:'Spiral CC (CCP)',sy:'Conical Connection System',p:2,conn:'קוני Ø2.50 · אטום 100%',cats:['conical'],cat:'Conical Connection',dia:'3.75–5.0',len:'8–16',ref:'AF-CSI',top:'conical',bd:'spiral',
+   feat:['חיבור פנימי קוני Ø2.50mm — אטום 100%','משטח Micro-ring + צוואר סימטרי','תבריגי קונדנסציה חדים ליציבות'],
+   clin:['אזור אסתטי / קדמי — אטימה ושימור עצם','מקרים הדורשים יציבות לטווח ארוך','יציבות ראשונית גבוהה + עומס מיידי','כשרוצים את המפגש האטום ביותר']},
+  {n:'Grip',sy:'Predictable Immediacy System',p:2,conn:'Internal Hex + Platform switching',cats:['hex'],cat:'Internal Hex system',dia:'3.75–5.0',len:'8–16',ref:'BIO-GRIP',top:'hex',bd:'spiral',
+   feat:['צוואר Platform-switching — שימור עצם קרסטלית','גוף אקסטרה-טייפרד לקונדנסציה אגרסיבית','קצה חד Ø1.5mm להחדרה קלה'],
+   clin:['השתלה בשקע עקירה (מיידית)','עצם ספוגית / רכה (D3–D4)','פרוטוקול עומס מיידי','ניהול רקמה רכה באזור אסתטי']},
+  {n:'Pterygoid',sy:'Bicortical Anchorage System',p:2,conn:'Internal Hex 2.43 / 2.1',cats:['pterygoid','hex'],cat:'Pterygoid · Internal Hex',dia:'3.0–4.2',len:'16–25',ref:'AF-IH',top:'hex',bd:'square',
+   feat:['תבריג מרובע (square) לקונדנסציה אגרסיבית','מיקרו-תבריג משוחזר לשימור עצם קרסטלית','קצה חד לעיגון ביקורטיקלי'],
+   clin:['תחליף להרמת סינוס בלסת עליונה אחורית','עוגן אחורי שמבטל זרוע מוחזקת (קנטליבר)','אחוזי הצלחה גבוהים, סיבוכים מעטים','שתל ארוך (16–25mm) לעצם צפופה עמוקה']},
+  {n:'Zygomatic',sy:'Extra-Long Anchorage System',p:2,conn:'Internal Hex 2.43 / 2.1',cats:['hex'],cat:'Internal Hex system',dia:'3.75–4.2',len:'30–60',ref:'AF-ARCH',top:'zygo',bd:'long',
+   feat:['אורך קיצוני 30–60mm — עוגן בעצם הלחי','צוואר סימטרי לחלוקת עומס','פיר חלק מלוטש — מונע חיידקים ודלקת'],
+   clin:['לסת עליונה חסרת עצם באופן קיצוני','תחליף להגדלת עצם / הרמת סינוס','שיקום לאחר כריתת גידול','הצלה כשל שתלים קונבנציונליים קודמים']},
+  {n:'Compressive',sy:'Single-Piece Angle Correction',p:1,conn:'מבנה מובנה כפיף',cats:['compressive'],cat:'Compressive one-piece',dia:'3.0–5.0',len:'8–20',ref:'AF-CC',top:'gold',bd:'spiral',
+   feat:['מבנה מובנה כפיף עם ציפוי אנטי-בקטריאלי','תבריגי קונדנסציה גבוהים','קצה self-tapping — ליבה צרה מונעת פגיעה'],
+   clin:['רכסים צרים החל מ-3.0mm','תיקון זווית פרוסתטי (כיפוף)','שחזור באזור החיוך (אסתטי)','החלפת מולר עד 5.0mm · עומס מיידי']},
+  {n:'Basal',sy:'Bicortical Anchorage System',p:1,conn:'מבנה מובנה כפיף',cats:['compressive'],cat:'Compressive one-piece',dia:'3.6–4.6',len:'10–30',ref:'AF-BC',top:'gold',bd:'square',
+   feat:['תבריג אגרסיבי לעיגון בעצם בזאלית','קצה wide-wing לעיגון ביקורטיקלי','מבנה מובנה כפיף לתיקון זווית'],
+   clin:['רכסים אטרופיים קיצוניים','איכות עצם ירודה (כשל שתל רגיל)','השתלה ועומס מיידי','אזור אסתטי והחלפת מולר']},
+  {n:'Compressive MU',sy:'Multi-Unit Screw-Retained',p:1,conn:'מבנה מולטי-יוניט מובנה',cats:['compressive'],cat:'Compressive one-piece',dia:'3.0–5.0',len:'8–20',ref:'AF-CMU',top:'mu',bd:'spiral',
+   feat:['מבנה מולטי-יוניט מובנה (צוואר כפיף)','ניתן לפירוק (retrievable)','עיצוב חד-חלקי — ללא מיקרו-גאפ'],
+   clin:['שיקום פה מלא מתוברג (All-on-X)','פרוסתטיקה מתוברגת (לא מודבקת)','רכסים צרים החל מ-3.0mm','אפשרות פירוק לתחזוקה']},
+  {n:'Pterygoid MU',sy:'Multi-Unit Pterygomaxillary',p:1,conn:'מבנה מולטי-יוניט מובנה',cats:['pterygoid','compressive'],cat:'Pterygoid · Compressive 1P',dia:'3.5–4.0',len:'16–26',ref:'AF-PMU',top:'mu',bd:'square',
+   feat:['מבנה מולטי-יוניט מובנה כפיף','גוף רחב ל-BIC (מגע עצם-שתל) מוגבר','קצה פטריגואידי לעיגון פטריגו-מקסילרי'],
+   clin:['תחליף להרמת סינוס + שיקום מתוברג','לסת עליונה אחורית','מבטל זרוע מוחזקת בגשר מלא','סיבוכים מעטים']},
+ ];
+
+ var F={piece:'all',cat:'all'};
+ var grid=document.getElementById('grid'),countEl=document.getElementById('count');
+ function li(arr,cls){return '<ul'+(cls?' class="'+cls+'"':'')+'>'+arr.map(function(x){return '<li>'+x+'</li>';}).join('')+'</ul>';}
+ function render(){
+   var list=D.filter(function(x){return (F.piece==='all'||x.p==(+F.piece))&&(F.cat==='all'||x.cats.indexOf(F.cat)>-1);});
+   countEl.textContent='מציג '+list.length+' מתוך '+D.length+' סדרות';
+   grid.innerHTML=list.map(function(x){
+     var piece=x.p===2?'<span class="badge b2">דו-חלקי</span>':'<span class="badge b1">חד-חלקי</span>';
+     return '<article class="card p'+x.p+'">'
+       +'<div class="card-top"><figure>'+fig(x.top,x.bd,x.n)+'</figure><div style="flex:1">'
+       +'<h3>'+x.n+'</h3><div class="system">'+x.sy+'</div>'
+       +'<div class="badges">'+piece+'<span class="badge bconn">'+x.conn+'</span></div>'
+       +'<div class="badges"><span class="badge bconn">'+x.cat+'</span></div>'
+       +'</div></div>'
+       +'<div class="section-h">מאפיינים</div>'+li(x.feat)
+       +'<div class="section-h">ייעוד קליני</div>'+li(x.clin,'clin')
+       +'<dl class="specs"><div><dt>קוטר Ø</dt><dd>'+x.dia+'</dd></div><div><dt>אורך mm</dt><dd>'+x.len+'</dd></div><div><dt>מק"ט</dt><dd>'+x.ref+'</dd></div></dl>'
+       +'<div class="surface-note">משטח: SLA/RBM עם חומצה ציטרית טבעית · אנטי-בקטריאלי · רמה רפואית</div>'
+       +'</article>';
+   }).join('');
+ }
+ document.querySelectorAll('.chipbtn[data-k]').forEach(function(b){
+   b.addEventListener('click',function(){
+     var k=b.dataset.k;F[k]=b.dataset.v;
+     document.querySelectorAll('.chipbtn[data-k="'+k+'"]').forEach(function(o){o.setAttribute('aria-pressed',o===b?'true':'false');});
+     render();
+   });
+ });
+ document.querySelectorAll('.tile[data-jump]').forEach(function(t){
+   t.addEventListener('click',function(){
+     var v=t.dataset.jump;F.cat=v;F.piece='all';
+     document.querySelectorAll('.chipbtn[data-k="cat"]').forEach(function(o){o.setAttribute('aria-pressed',o.dataset.v===v?'true':'false');});
+     document.querySelectorAll('.chipbtn[data-k="piece"]').forEach(function(o){o.setAttribute('aria-pressed',o.dataset.v==='all'?'true':'false');});
+     render();
+     document.getElementById('implants').scrollIntoView({behavior:'smooth'});
+   });
+ });
+ render();
+
+ // ---------- glossary ----------
+ var GL=[
+  {he:'Internal Hex — משושה פנימי',pro:'Internal Hex',g:'conn',def:'שקע בצורת משושה בתוך השתל שהמבנה נכנס אליו ומונע ממנו להסתובב. החיבור הנפוץ, הפשוט והתואם ביותר — עבודה מוכרת וגמישה.'},
+  {he:'חיבור קוני',pro:'Conical / Morse Taper',g:'conn',def:'המבנה חרוטי ונתקע בחוזקה בתוך חרוט תואם בשתל, כמו פקק בבקבוק. אטימה כמעט מושלמת — פחות חיידקים, פחות איבוד עצם, אסתטיקה מעולה.'},
+  {he:'חד-חלקי',pro:'One-Piece',g:'conn',def:'השתל והמבנה הם יציקה אחת רציפה, בלי שום מפגש. אפס מיקרו-גאפ, חוזק מכני מרבי, מתאים לרכסים צרים — אך דורש פרוטוקול חד-שלבי.'},
+  {he:'דו-חלקי',pro:'Two-Piece',g:'conn',def:'גוף השתל ומבנה נפרד שמתחברים בבורג. גמישות: אפשר לבחור ולהחליף מבנה אחרי ההחלמה ולקבור את השתל להחלמה דו-שלבית.'},
+  {he:'החלפת פלטפורמה',pro:'Platform Switching',g:'conn',def:'המבנה צר יותר מראש השתל, כך שנקודת המפגש מוזזת פנימה הרחק מהעצם — שומר על העצם סביב הצוואר.'},
+  {he:'מבנה מולטי-יוניט',pro:'Multi-Unit Abutment (MU)',g:'conn',def:'מבנה ביניים סטנדרטי שמחבר גשר מתוברג על כמה שתלים יחד. מיישר הבדלי זווית ומאפשר שיקום פה מלא שניתן לפרק (All-on-X).'},
+  {he:'מיקרו-גאפ',pro:'Micro-Gap',g:'conn',def:'המרווח המיקרוסקופי במפגש שתל-מבנה בשתלים דו-חלקיים. חיידקים מתיישבים בו וגורמים לדלקת ואיבוד עצם. חד-חלקי וקוני מצמצמים אותו.'},
+  {he:'מבנה',pro:'Abutment',g:'conn',def:'החלק המחבר בין השתל לכתר — עליו יושב השחזור.'},
+
+  {he:'לסת עליונה אחורית',pro:'Posterior Maxilla',g:'anat',def:'החלק האחורי של הלסת העליונה, מתחת לסינוס. לרוב עם עצם דקה ורכה — קשה להשתיל שם שתל רגיל.'},
+  {he:'הרמת סינוס',pro:'Sinus Lift / Augmentation',g:'anat',def:'ניתוח שמרים את קרום הסינוס ומוסיף עצם בגובה בלסת העליונה האחורית לפני השתלה. פולשני ומוסיף חודשים — שתלי Pterygoid/Zygomatic לרוב חוסכים אותו.'},
+  {he:'אזור פטריגואידי',pro:'Pterygoid Region',g:'anat',def:'עצם צפופה מאחורי המולרים העליונים. שתלי Pterygoid מתעגנים שם כדי לתמוך בקצה האחורי של שיקום מלא בלי הרמת סינוס.'},
+  {he:'עצם הזיגומה (עצם הלחי)',pro:'Zygomatic Bone',g:'anat',def:'עצם הלחי. שתלי Zygomatic מתעגנים בה כשאין עצם שמישה בלסת העליונה בכלל — עוקפים את חוסר העצם.'},
+  {he:'רכס אטרופי',pro:'Atrophic Ridge',g:'anat',def:'רכס לסת שהצטמק ונספג אחרי אובדן שיניים. מעט עצם ברוחב ובגובה — דורש פתרונות צרים, בזאליים או משופעים.'},
+  {he:'איכות עצם D1–D4',pro:'Bone Quality',g:'anat',def:'סולם: D1 עצם קורטיקלית קשה עד D4 עצם ספוגית רכה. עצם רכה (נפוצה בלסת עליונה אחורית) דורשת שתלים מקונדנסים ליציבות.'},
+  {he:'עיגון ביקורטיקלי',pro:'Bicortical Anchorage',g:'anat',def:'עיגון בשתי שכבות של עצם קשה (קורטיקלית) ליציבות מרבית — משמש את Basal, Pterygoid ו-Zygomatic.'},
+  {he:'שקע עקירה',pro:'Extraction Socket',g:'anat',def:'החלל הריק מיד אחרי עקירת שן. "השתלה מיידית" = הכנסת השתל ישר לתוכו באותו ביקור.'},
+  {he:'עצם קרסטלית',pro:'Crestal Bone',g:'anat',def:'העצם בקצה העליון של הרכס סביב צוואר השתל. שמירתה (Platform switching, קוני, מיקרו-תבריג) = אסתטיקה ואורך חיים.'},
+  {he:'זרוע מוחזקת (קנטליבר)',pro:'Distal Cantilever',g:'anat',def:'בגשר מלא — שיניים שבולטות מעבר לשתל האחרון בלי תמיכה תחתן. ממנף ומסוכן. עוגן אחורי (Pterygoid) מבטל אותו.'},
+
+  {he:'אוסאואינטגרציה',pro:'Osseointegration',g:'gen',def:'ההיתוך הביולוגי של העצם אל פני השתל — עצם ה"הצלחה" של כל שתל.'},
+  {he:'יציבות ראשונית',pro:'Primary Stability',g:'gen',def:'כמה השתל "נעול" בעצם מיד עם ההשתלה. גבוהה = מאפשרת עומס מיידי.'},
+  {he:'טורק',pro:'Insertion Torque (Ncm)',g:'gen',def:'כוח הסיבוב הדרוש להברגת השתל, נמדד ב-Ncm — מדד ליציבות הראשונית.'},
+  {he:'עומס מיידי',pro:'Immediate Loading',g:'gen',def:'חיבור כתר/גשר לשתל מיד או תוך ימים, במקום להמתין 3–6 חודשים. דורש יציבות ראשונית גבוהה.'},
+  {he:'השתלה מיידית',pro:'Immediate Placement',g:'gen',def:'הכנסת השתל באותו ביקור של העקירה, לתוך שקע העקירה.'},
+  {he:'קידוח / הברגה עצמית',pro:'Self-Tapping / Self-Drilling',g:'gen',def:'השתל חותך לעצמו את הדרך בעצם תוך כדי החדרה — פחות שלבי קידוח, פחות טראומה לעצם.'},
+  {he:'בורג ריפוי',pro:'Healing Cap',g:'gen',def:'רכיב זמני שמכסה את השתל ומעצב את הרקמה בזמן ההחלמה.'},
+  {he:'מתוברג מול מודבק',pro:'Screw- vs Cement-Retained',g:'gen',def:'שתי דרכים לחבר את השיקום: מתוברג (ניתן לפירוק לתחזוקה) מול מודבק (קבוע).'},
+  {he:'SLA — משטח מחוספס',pro:'Sandblasted, Large-grit, Acid-etched',g:'gen',def:'טיפול שטח: הטיטניום מחוספס בהתזת חול ואז נצרב בחומצה, ליצירת מיקרו-חספוס שמזרז ומחזק את האוסאואינטגרציה.'},
+  {he:'RBM — משטח מחוספס',pro:'Resorbable Blast Media',g:'gen',def:'חספוס פני השטח בהתזת חומר מסיס (למשל סידן-פוספט) שלא משאיר שאריות — משטח מחוספס וביו-אקטיבי.'},
+  {he:'ציפוי אנודי אנטי-בקטריאלי',pro:'Anodized Anti-bacterial Coating',g:'gen',def:'שכבת פני-שטח אלקטרו-כימית (לרוב הצוואר הצבעוני) שמתנגדת להתיישבות חיידקים — מפחיתה סיכון לפרי-אימפלנטיטיס.'},
+  {he:'טיפול בחומצה ציטרית',pro:'Citric Acid Treatment',g:'gen',def:'ניקוי והכשרה טבעיים ונטולי-כימיקלים של פני השטח — הגישה ה"ירוקה" של Alpha Fix.'},
+  {he:'פרי-אימפלנטיטיס',pro:'Peri-implantitis',g:'gen',def:'מחלה דלקתית סביב השתל שהורסת את העצם התומכת — האיום המרכזי לטווח ארוך; מצטמצם באטימה טובה ובמשטח אנטי-בקטריאלי.'},
+  {he:'שיקום פה מלא',pro:'All-on-X (All-on-4/6)',g:'gen',def:'קשת שלמה של שיניים קבועות על 4–6 שתלים, לרוב מתוברגת על מבני מולטי-יוניט.'},
+  {he:'טיטניום רפואי',pro:'Medical-grade Titanium',g:'gen',def:'סגסוגת טיטניום ביו-תואמת (Grade 4/5) המשמשת לייצור שתלים.'},
+ ];
+ var gGrid=document.getElementById('gGrid'),gEmpty=document.getElementById('gEmpty');
+ var GF={g:'all',q:''};
+ var gLabel={conn:'חיבור',anat:'אנטומיה',gen:'כללי'};
+ function gRender(){
+   var q=GF.q.trim().toLowerCase();
+   var list=GL.filter(function(t){
+     if(GF.g!=='all'&&t.g!==GF.g)return false;
+     if(!q)return true;
+     return (t.he+' '+t.pro+' '+t.def).toLowerCase().indexOf(q)>-1;
+   });
+   gEmpty.style.display=list.length?'none':'block';
+   gGrid.innerHTML=list.map(function(t){
+     return '<div class="term"><span class="gtag">'+gLabel[t.g]+'</span><div class="he">'+t.he+'</div><div class="pro">'+t.pro+'</div><div class="def">'+t.def+'</div></div>';
+   }).join('');
+ }
+ document.querySelectorAll('.chipbtn[data-g]').forEach(function(b){
+   b.addEventListener('click',function(){
+     GF.g=b.dataset.g;
+     document.querySelectorAll('.chipbtn[data-g]').forEach(function(o){o.setAttribute('aria-pressed',o===b?'true':'false');});
+     gRender();
+   });
+ });
+ document.getElementById('gsearch').addEventListener('input',function(e){GF.q=e.target.value;gRender();});
+ gRender();
+})();
+</script>
+</body>
+</html>
