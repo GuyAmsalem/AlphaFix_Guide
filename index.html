@@ -395,7 +395,7 @@ footer b{color:var(--mut)}
    var piece=x.p===2?'<span class="badge b2">דו-חלקי</span>':'<span class="badge b1">חד-חלקי</span>';
    return '<article class="card p'+x.p+'">'
      +'<div class="card-top"><figure>'+fig(x.top,x.bd,x.n)+'</figure><div style="flex:1">'
-     +'<h3>'+x.n+'</h3><div class="system">מק"ט '+x.ref+'</div>'
+     +'<h3>'+x.n+'</h3>'
      +'<div class="badges">'+piece+'<span class="badge bconn">'+x.conn+'</span></div>'
      +'</div></div>'
      +'<div class="what">'+x.what+'</div>'
@@ -403,7 +403,7 @@ footer b{color:var(--mut)}
      +'<div class="box diff"><b class="lbl">מה מבדיל אותו בקטגוריה</b>'+x.diff+'</div>'
      +'<div class="box factor"><b class="lbl">הגורם המכריע</b>'+x.factor+'</div>'
      +'<div class="box pitch"><b class="lbl">משפט למכירה</b>'+x.pitch+'</div>'
-     +'<dl class="specs"><div><dt>קוטר Ø</dt><dd>'+x.dia+'</dd></div><div><dt>אורך mm</dt><dd>'+x.len+'</dd></div><div><dt>מק"ט</dt><dd>'+x.ref+'</dd></div></dl>'
+     +'<dl class="specs"><div><dt>קוטר Ø</dt><dd>'+x.dia+'</dd></div><div><dt>אורך mm</dt><dd>'+x.len+'</dd></div></dl>'
      +'<div class="surface-note">משטח: SLA/RBM עם חומצה ציטרית טבעית · אנטי-בקטריאלי · רמה רפואית</div>'
      +'</article>';
  }
